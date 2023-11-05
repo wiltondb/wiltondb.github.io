@@ -1,1 +1,103 @@
-todo wiltondb contents
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>WiltonDB</title>
+    <link href="../../bootstrap-5.3.0-dist/css/bootstrap.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="wiltondb.css" rel="stylesheet">
+    <link rel="icon" href="logo.svg" sizes="any" type="image/svg+xml">
+  </head>
+  <body>
+<div class="container py-3">
+  <header>
+    <div class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom">
+      <a href="/" class="d-flex align-items-center link-body-emphasis text-decoration-none">
+        <img src="logo.svg" alt="logo" class="me-2" width="40" height="40">
+        <span class="fs-4 fw-bold">WiltonDB</span>
+      </a>
+
+      <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
+        <a class="me-3 py-2 link-body-emphasis text-decoration-none" href="#FAQ">FAQ</a>
+        <a class="me-3 py-2 link-body-emphasis text-decoration-none" href="https://github.com/wiltondb/wiltondb/wiki">Documentation</a>
+        <a class="py-2 link-body-emphasis text-decoration-none" href="https://github.com/wiltondb">GitHub</a>
+      </nav>
+    </div>
+
+    <div class="wiltondb-header p-3 pb-md-4 mx-auto text-center">
+      <h1 class="display-6 fw-normal text-body-emphasis">Open-source DB that can work with applications written for <span class="wiltondb-nowrap">Microsoft SQL Server</span></h1>
+    </div>
+  </header>
+
+  <main>
+      <p class="fs-5 text-body-secondary">
+        WiltonDB consists of a modified <a href="https://www.postgresql.org/" target="_blank" class="link-dark">PostgreSQL</a> with a set of <a href="https://babelfishpg.org/" target="_blank" class="link-dark">Babelfish extensions</a> packaged for Windows.
+        It strives to be useable as a drop-in replacement to <a href="https://en.wikipedia.org/wiki/Microsoft_SQL_Server" target="_blank" class="link-dark">Microsoft SQL Server</a>.
+        It understands MSSQL dialect <span class="wiltondb-nowrap">(<a href="https://en.wikipedia.org/wiki/Transact-SQL" target="_blank" class="link-dark">T-SQL</a>)</span> and can run existing queries and stored procedures for your application.
+        It also understands MSSQL wire protocol (<a href="https://en.wikipedia.org/wiki/Tabular_Data_Stream" target="_blank" class="link-dark">TDS</a>) so applications can use the same DB drivers (ADO.NET, ODBC, JDBC) to connect to WiltonDB.
+      </p>
+
+    <div class="wiltondb-header p-3 pb-md-4 mx-auto text-center">
+      <a href="https://github.com/wiltondb/wiltondb/wiki/Getting-Started" type="button" class="btn btn-dark btn-lg wiltondb-getstarted-button">Get Started</a>
+    </div>
+
+    <h2 id="FAQ" class="display-6 text-center mt-4">FAQ</h2>
+      <p class="fs-5 text-body-dark">
+        <span class="fw-bold">Question 1:</span> If this is Babelfish built for Windows, why is it called "WiltonDB" not "Babelfish for Windows"?
+      </p>
+      <p class="fs-5 text-body-secondary">
+        Babelfish open-source project officially <a href="https://github.com/babelfish-for-postgresql/babelfish_extensions/issues/263#issuecomment-1501179255" target="_blank" class="link-dark">does not support Windows</a>.
+        Babelfish codebase relies on a number of assumptions about the toolchain (for example: 128-bit integer support, variable-length struct fields, extern variables visibility) that are incompatible with <a href="https://en.wikipedia.org/wiki/Microsoft_Visual_C%2B%2B" target="_blank" class="link-dark">MSVC compiler</a>.
+        Windows porting patches applied to Babelfish are numerous and not trivial, if WiltonDB misbehaves or crashes when running with your application on Windows, it does not necessary mean that Babelfish running on Linux will have the same problem
+        (please <a href="https://github.com/wiltondb/wiltondb/issues" target="_blank" class="link-dark">report such problems/discrepancies to us</a>, we will try to fix them).
+      </p>
+      <p class="fs-5 text-body-dark">
+        <span class="fw-bold">Question 2:</span> Is Babelfish/WiltonDB 100% compatible with MSSQL?
+      </p>
+      <p class="fs-5 text-body-secondary">
+        No, it is not, though in recent versions compatibility is quite high, see details in <a href="https://babelfishpg.org/docs/limitations/limitations-of-babelfish/" target="_blank" class="link-dark">Babelfish documentation</a>.
+        Please also note, that in many cases Babelfish relies on native PostgreSQL implementation, and behaviour of the same standard SQL functionality may be slightly different (for example, datetime string parsing is more lenient than in MSSQL).
+      </p>
+      <p class="fs-5 text-body-dark">
+        <span class="fw-bold">Question 3:</span> Can I run WiltonDB on Linux?
+      </p>
+      <p class="fs-5 text-body-secondary">
+        Yes, we maintain WiltonDB packages for <a href="https://github.com/wiltondb/wiltondb/wiki/DEBPackages" target="_blank" class="link-dark">Ubuntu</a>
+        and <a href="https://github.com/wiltondb/wiltondb/wiki/RPMPackages" target="_blank" class="link-dark">RHEL</a> built from exactly the same sources that are used for Windows MSI.
+        While compiling vanilla Babelfish from source is <a href="https://github.com/babelfish-for-postgresql/babelfish_extensions/blob/BABEL_3_2_0/INSTALLING.md.tmpl" target="_blank" class="link-dark">relatively straightforward</a>,
+        WiltonDB DEB and RPM packages follow distro conventions for DB cluster/config placement and provide integration with <a href="https://en.wikipedia.org/wiki/Systemd" target="_blank" class="link-dark">systemd</a>.
+      </p>
+      <p class="fs-5 text-body-dark">
+        <span class="fw-bold">Question 4:</span> Do you provide managed instances of WiltonDB to  be used with applications deployed in a cloud?
+      </p>
+      <p class="fs-5 text-body-secondary">
+        No, WiltonDB is distributed and supported only as a standalone <a href="https://en.wikipedia.org/wiki/Windows_Installer" target="_blank" class="link-dark">Windows installer</a> MSI package
+        and as Linux <a href="https://github.com/wiltondb/wiltondb/wiki/DEBPackages" target="_blank" class="link-dark">DEB</a> and <a href="https://github.com/wiltondb/wiltondb/wiki/RPMPackages" target="_blank" class="link-dark">RPM</a> packages.
+        For cloud deployments please consider using <a href="https://aws.amazon.com/rds/aurora/babelfish/" target="_blank" class="link-dark">Babelfish for Amazon Aurora</a>.
+        WiltonDB Software is not affiliated with AWS (beyond being a minor contributor to open-source Babelfish).
+        Though WiltonDB project would not be possible without the work and dedication of the dozens of people who have contributed to creation of Babelfish at AWS and then have graciously made it open-source.
+        Everyone involved in the development of Babelfish has our gratitude.
+      </p>
+
+
+    <h2 id="licence" class="display-6 text-center mt-4">License</h2>
+      <p class="fs-5 text-body-secondary">
+        WiltonDB is released under the <a href="https://www.apache.org/licenses/LICENSE-2.0" target="_blank" class="link-dark">Apache-2.0</a> or <a href="https://opensource.org/license/postgresql/" target="_blank" class="link-dark">PostgreSQL license</a> at your choice. Use is permitted under either license.
+      </p>
+
+  </main>
+
+  <footer class="pt-4 my-md-5 pt-md-5 border-top">
+    <div class="row">
+      <div class="col-12 col-md">
+        <img class="" src="logo.svg" alt="logo" width="24" height="19">
+        <small class="text-body-secondary">&copy; 2023</small>
+        <small class="d-block mt-1 text-body-secondary">WiltonDB Software, Ireland, CRO reg. number 725931</small>
+        <small class="d-block mt-1 text-body-secondary"><a href="mailto:info@wiltondb.com" class="link-secondary link-underline-light">info@wiltondb.com</a></small>
+      </div>
+    </div>
+  </footer>
+</div>
+</body>
+</html>
